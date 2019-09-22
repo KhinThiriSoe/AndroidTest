@@ -18,11 +18,15 @@ ext {
     // Koin
     koin_version = '2.0.1'
 
+    // ViewModel and LiveData
     android_arch_version = '1.1.1'
     androidx_arch_version = '2.0.0-rc01'
 
     // UI
     material_version = '1.0.0'
+
+    // Image Loader
+    glide_version = '4.9.0'
 
     // Test
     test_runner_version = '1.2.0'

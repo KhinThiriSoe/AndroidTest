@@ -11,5 +11,5 @@ interface GalleryDataSource {
     fun getImage(
         @Query(DataSourceProperties.KEY_API_KEY) key: String,
         @Query(DataSourceProperties.KEY_PAGE) page: Int
-    ): Single<List<Image>>
+    ): Single<Image>
 }

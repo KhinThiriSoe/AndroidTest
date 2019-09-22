@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupFragment(fragmentManager: FragmentManager, viewPager: ViewPager) {
         val adapter = FragmentPageAdapter(fragmentManager)
         adapter.add(VideoFragment(), "VideoPlayer Page")
-        adapter.add(GalleryFragment(), "Gallery Page")
+        adapter.add(GalleryFragment(), "GalleryItem Page")
         viewPager.adapter = adapter
     }
 

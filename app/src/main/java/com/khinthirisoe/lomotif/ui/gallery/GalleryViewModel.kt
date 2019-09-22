@@ -38,6 +38,6 @@ class GalleryViewModel(
         }
     }
 
-    data class GalleryLoaded(val gallery: List<Image>) : ViewModelState()
+    data class GalleryLoaded(val gallery: Image) : ViewModelState()
 
 }
