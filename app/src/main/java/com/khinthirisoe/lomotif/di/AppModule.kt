@@ -1,19 +1,22 @@
 package com.khinthirisoe.lomotif.di
 
-import com.khinthirisoe.lomotif.base.ApplicationSchedulerProvider
-import com.khinthirisoe.lomotif.base.SchedulerProvider
-import com.khinthirisoe.lomotif.data.ApplicationNetworkUtils
-import com.khinthirisoe.lomotif.data.NetworkUtils
+import com.khinthirisoe.lomotif.core.coreModule
+import com.khinthirisoe.lomotif.data.gallery.GalleryRepository
+import com.khinthirisoe.lomotif.data.gallery.GalleryRepositoryImpl
+import com.khinthirisoe.lomotif.data.remoteDataSourceModule
+import com.khinthirisoe.lomotif.ui.gallery.GalleryViewModel
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
 
-    single { ApplicationNetworkUtils(get()) as NetworkUtils }
+    single<GalleryRepository> {
+        GalleryRepositoryImpl(
+            get()
+        )
+    }
+    viewModel { GalleryViewModel(get(), get(), get()) }
 
 }
 
-val rxModule = module {
-    single { ApplicationSchedulerProvider() as SchedulerProvider }
-}
-
-val app = listOf(appModule, rxModule)
+val app = listOf(appModule, coreModule, remoteDataSourceModule)

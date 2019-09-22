@@ -1,6 +1,6 @@
-package com.khinthirisoe.lomotif.ext
+package com.khinthirisoe.lomotif.core.ext
 
-import com.khinthirisoe.lomotif.base.SchedulerProvider
+import com.khinthirisoe.lomotif.core.rx.SchedulerProvider
 import io.reactivex.Completable
 import io.reactivex.Single
 

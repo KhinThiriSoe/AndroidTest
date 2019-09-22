@@ -1,4 +1,4 @@
-package com.khinthirisoe.lomotif.base
+package com.khinthirisoe.lomotif.core.rx
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

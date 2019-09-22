@@ -1,4 +1,4 @@
-package com.khinthirisoe.lomotif.data
+package com.khinthirisoe.lomotif.core.network
 
 import io.reactivex.Completable
 

@@ -1,4 +1,4 @@
-package com.khinthirisoe.lomotif.data
+package com.khinthirisoe.lomotif.core.network
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -17,7 +17,11 @@ class ApplicationNetworkUtils(
         return if (activeNetworkInfo != null && activeNetworkInfo.isConnected)
             Completable.complete()
         else
-            Completable.error(ResponseError.NoInternetConnection("No internet connection"))
+            Completable.error(
+                ResponseError.NoInternetConnection(
+                    "No internet connection"
+                )
+            )
     }
 
 }
