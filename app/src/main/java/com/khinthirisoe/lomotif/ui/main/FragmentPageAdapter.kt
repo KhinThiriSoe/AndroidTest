@@ -1,4 +1,4 @@
-package com.khinthirisoe.lomotif
+package com.khinthirisoe.lomotif.ui.main
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

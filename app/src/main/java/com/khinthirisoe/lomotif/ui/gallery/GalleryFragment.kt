@@ -1,10 +1,11 @@
-package com.khinthirisoe.lomotif
+package com.khinthirisoe.lomotif.ui.gallery
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.khinthirisoe.lomotif.R
 
 class GalleryFragment : Fragment() {
 
