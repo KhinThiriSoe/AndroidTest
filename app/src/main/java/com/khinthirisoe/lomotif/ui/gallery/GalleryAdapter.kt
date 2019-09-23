@@ -10,8 +10,10 @@ import com.khinthirisoe.lomotif.data.gallery.Hits
 import kotlinx.android.synthetic.main.list_gallery.view.*
 
 class GalleryAdapter(
-    val hitList: MutableList<Hits> = mutableListOf()
+    private val onClick: (Hits) -> Unit
 ) : RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
+
+    val hitList: ArrayList<Hits> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_gallery, parent, false)
@@ -24,10 +26,20 @@ class GalleryAdapter(
 
     override fun getItemCount() = hitList.size
 
+    fun setData(hits: List<Hits>){
+        hitList.addAll(hits)
+        notifyDataSetChanged()
+    }
+
     inner class GalleryViewHolder(item: View) : RecyclerView.ViewHolder(item) {
 
         fun display(hits: Hits) {
-            Glide.with(itemView.context).load(hits.previewURL).into(itemView.imageView)
+            Glide.with(itemView.context)
+                .load(hits.previewURL)
+                .override(hits.previewWidth, hits.previewHeight)
+                .into(itemView.imageView)
+
+            itemView.imageView.setOnClickListener { onClick(hits) }
         }
 
     }
