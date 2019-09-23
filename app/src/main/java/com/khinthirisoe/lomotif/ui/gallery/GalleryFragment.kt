@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.khinthirisoe.lomotif.R
 import com.khinthirisoe.lomotif.data.DataSourceProperties
@@ -16,6 +17,9 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 class GalleryFragment : Fragment() {
 
     private val viewModel: GalleryViewModel by sharedViewModel()
+
+    private var scrollListener: EndlessRecyclerViewScrollListener? = null
+    private var list: ArrayList<Hits> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,14 +45,23 @@ class GalleryFragment : Fragment() {
     }
 
     private fun prepareListView() {
-        recyclerGallery.layoutManager =
-            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerGallery.adapter = GalleryAdapter(emptyList())
+        recyclerGallery.layoutManager = layoutManager
+        recyclerGallery.isNestedScrollingEnabled = false
+
+        scrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
+                viewModel.fetchData(DataSourceProperties.VALUE_API_KEY, page)
+            }
+        }
+        recyclerGallery.addOnScrollListener(scrollListener as EndlessRecyclerViewScrollListener)
     }
 
     private fun showGalleryItemList(newList: List<Hits>) {
         val adapter = recyclerGallery.adapter as GalleryAdapter
-        adapter.list = newList
+        list.addAll(newList)
+        adapter.list = list
         adapter.notifyDataSetChanged()
     }
 }
