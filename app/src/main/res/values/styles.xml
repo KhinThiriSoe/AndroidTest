@@ -8,4 +8,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Widget.View.BaseButton" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">@dimen/button_radiusSize</item>
+    </style>
+
+    <style name="Widget.View.Button" parent="Widget.View.BaseButton">
+        <item name="android:paddingLeft">@dimen/button_horizontal_padding</item>
+        <item name="android:paddingRight">@dimen/button_horizontal_padding</item>
+    </style>
+
+    <style name="TextAppearance.View.Error" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:layout_marginTop">@dimen/text_vertical_margin</item>
+        <item name="android:layout_marginBottom">@dimen/text_vertical_margin</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
 </resources>
