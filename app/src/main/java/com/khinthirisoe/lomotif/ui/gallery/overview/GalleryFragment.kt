@@ -1,10 +1,9 @@
-package com.khinthirisoe.lomotif.ui.gallery
+package com.khinthirisoe.lomotif.ui.gallery.overview
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,6 +15,8 @@ import com.khinthirisoe.lomotif.data.gallery.Hits
 import com.khinthirisoe.lomotif.ui.Failed
 import com.khinthirisoe.lomotif.ui.custom.EndlessRecyclerViewScrollListener
 import com.khinthirisoe.lomotif.ui.custom.OverlayView
+import com.khinthirisoe.lomotif.ui.gallery.detail.DetailFragment
+import com.khinthirisoe.lomotif.ui.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_gallery.*
 import kotlinx.android.synthetic.main.fragment_gallery.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -26,7 +27,8 @@ class GalleryFragment : Fragment(), OverlayView.OnOverlayButtonClickedListener {
 
     private var scrollListener: EndlessRecyclerViewScrollListener? = null
 
-    private val galleryAdapter: GalleryAdapter = GalleryAdapter(onItemClicked())
+    private val galleryAdapter: GalleryAdapter =
+        GalleryAdapter(onItemClicked())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -93,8 +95,12 @@ class GalleryFragment : Fragment(), OverlayView.OnOverlayButtonClickedListener {
     }
 
     private fun onItemClicked(): (Hits) -> Unit {
-        return { galleryDetail ->
-            Toast.makeText(context, "click", Toast.LENGTH_SHORT).show()
+        return { hit ->
+            val fragment = DetailFragment()
+            val bundle = Bundle()
+            bundle.putParcelable("data", hit)
+            fragment.arguments = bundle
+            fragment.show((context as MainActivity).supportFragmentManager, "DetailFragment")
         }
     }
 

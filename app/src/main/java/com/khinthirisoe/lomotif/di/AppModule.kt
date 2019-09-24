@@ -4,7 +4,7 @@ import com.khinthirisoe.lomotif.core.coreModule
 import com.khinthirisoe.lomotif.data.gallery.GalleryRepository
 import com.khinthirisoe.lomotif.data.gallery.GalleryRepositoryImpl
 import com.khinthirisoe.lomotif.data.remoteDataSourceModule
-import com.khinthirisoe.lomotif.ui.gallery.GalleryViewModel
+import com.khinthirisoe.lomotif.ui.gallery.overview.GalleryViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

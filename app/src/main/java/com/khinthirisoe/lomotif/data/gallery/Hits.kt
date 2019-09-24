@@ -1,7 +1,10 @@
 package com.khinthirisoe.lomotif.data.gallery
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Hits (
     @SerializedName("largeImageURL") val largeImageURL : String,
     @SerializedName("webformatHeight") val webformatHeight : Int,
@@ -25,4 +28,4 @@ data class Hits (
     @SerializedName("previewWidth") val previewWidth : Int,
     @SerializedName("userImageURL") val userImageURL : String,
     @SerializedName("previewURL") val previewURL : String
-)
+): Parcelable

@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.khinthirisoe.lomotif.R
-import com.khinthirisoe.lomotif.ui.gallery.GalleryFragment
+import com.khinthirisoe.lomotif.ui.gallery.overview.GalleryFragment
 import com.khinthirisoe.lomotif.ui.video.VideoFragment
 import kotlinx.android.synthetic.main.activity_main.*
 

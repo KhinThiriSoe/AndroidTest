@@ -1,4 +1,4 @@
-package com.khinthirisoe.lomotif.ui.gallery
+package com.khinthirisoe.lomotif.ui.gallery.overview
 
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +13,7 @@ class GalleryAdapter(
     private val onClick: (Hits) -> Unit
 ) : RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
 
-    val hitList: ArrayList<Hits> = arrayListOf()
+    private val hitList: ArrayList<Hits> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_gallery, parent, false)

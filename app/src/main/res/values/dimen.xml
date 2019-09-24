@@ -6,4 +6,7 @@
     <dimen name="overlay_imageSize">80dp</dimen>
     <dimen name="button_radiusSize">100dp</dimen>
     <dimen name="button_horizontal_padding">24dp</dimen>
+
+    <dimen name="bottom_sheet_corner_radius">16dp</dimen>
+    <dimen name="bottom_sheet_top_padding">8dp</dimen>
 </resources>

@@ -1,4 +1,4 @@
-package com.khinthirisoe.lomotif.ui.gallery
+package com.khinthirisoe.lomotif.ui.gallery.overview
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -30,7 +30,10 @@ class GalleryViewModel(
                 .with(schedulerProvider)
                 .subscribe(
                 { image ->
-                    _states.value = GalleryLoaded(image)
+                    _states.value =
+                        GalleryLoaded(
+                            image
+                        )
                 },
                 { error ->
                     _states.value = Failed(error)
