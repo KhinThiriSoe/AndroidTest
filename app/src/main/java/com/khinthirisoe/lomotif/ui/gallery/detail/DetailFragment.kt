@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
-import com.khinthirisoe.lomotif.R
 import com.khinthirisoe.lomotif.data.gallery.Hits
 import com.khinthirisoe.lomotif.ui.custom.RoundedBottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_detail.*
+
 
 
 class DetailFragment : RoundedBottomSheetDialogFragment() {
@@ -25,7 +25,7 @@ class DetailFragment : RoundedBottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        return inflater.inflate(com.khinthirisoe.lomotif.R.layout.fragment_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,6 +41,9 @@ class DetailFragment : RoundedBottomSheetDialogFragment() {
             tvComments.text = it.comments.toString()
         }
 
-    }
+        tvDownload.setOnClickListener {
 
+        }
+
+    }
 }
