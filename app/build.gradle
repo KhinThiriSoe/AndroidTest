@@ -17,6 +17,12 @@ android {
         vectorDrawables.useSupportLibrary = true
 
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -69,6 +75,8 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:$glide_version"
 
     implementation 'com.github.jaiselrahman:FilePicker:1.2.2'
+
+    implementation 'com.github.Orfium:RxMusicPlayer-android:1.1.0'
 
     // test
     testImplementation "junit:junit:$junit_version"

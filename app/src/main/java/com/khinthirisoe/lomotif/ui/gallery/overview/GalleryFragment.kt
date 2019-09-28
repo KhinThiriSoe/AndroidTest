@@ -19,11 +19,11 @@ import com.khinthirisoe.lomotif.ui.widget.EndlessRecyclerViewScrollListener
 import com.khinthirisoe.lomotif.ui.widget.OverlayView
 import kotlinx.android.synthetic.main.fragment_gallery.*
 import kotlinx.android.synthetic.main.fragment_gallery.view.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class GalleryFragment : Fragment(), OverlayView.OnOverlayButtonClickedListener {
 
-    private val viewModel: GalleryViewModel by sharedViewModel()
+    private val viewModel: GalleryViewModel by viewModel()
 
     private var scrollListener: EndlessRecyclerViewScrollListener? = null
 

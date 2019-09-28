@@ -10,8 +10,13 @@ import org.koin.dsl.module
 
 val appModule = module {
 
-    single<GalleryRepository> { GalleryRepositoryImpl(get()) }
-    viewModel { GalleryViewModel(get(), get()) }
+    single<GalleryRepository> { GalleryRepositoryImpl(galleryDataSource = get()) }
+    viewModel {
+        GalleryViewModel(
+            networkUtils = get(),
+            galleryRepository = get()
+        )
+    }
 
 }
 
