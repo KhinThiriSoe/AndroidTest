@@ -6,12 +6,6 @@
     android:orientation="vertical"
     tools:context=".ui.video.VideoFragment">
 
-    <Button
-        android:id="@+id/btn_load"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ဴLoad" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerVideo"
         android:layout_width="match_parent"
