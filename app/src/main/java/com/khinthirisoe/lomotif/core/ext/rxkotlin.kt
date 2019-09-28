@@ -1,17 +1,17 @@
 package com.khinthirisoe.lomotif.core.ext
 
-import com.khinthirisoe.lomotif.core.rx.SchedulerProvider
 import io.reactivex.Completable
+import io.reactivex.Scheduler
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
-/**
- * Use SchedulerProvider configuration for Observable
- */
-fun Completable.with(schedulerProvider: SchedulerProvider): Completable =
-        this.observeOn(schedulerProvider.ui()).subscribeOn(schedulerProvider.io())
+fun Completable.initSchedulers(
+        observeOn: Scheduler = AndroidSchedulers.mainThread(),
+        subscribeOn: Scheduler = Schedulers.io()
+): Completable = this.observeOn(observeOn).subscribeOn(subscribeOn)
 
-/**
- * Use SchedulerProvider configuration for Single
- */
-fun <T> Single<T>.with(schedulerProvider: SchedulerProvider): Single<T> =
-        this.observeOn(schedulerProvider.ui()).subscribeOn(schedulerProvider.io())
+fun <T> Single<T>.initSchedulers(
+        observeOn: Scheduler = AndroidSchedulers.mainThread(),
+        subscribeOn: Scheduler = Schedulers.io()
+): Single<T> = this.observeOn(observeOn).subscribeOn(subscribeOn)

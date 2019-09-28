@@ -1,4 +1,4 @@
-package com.khinthirisoe.lomotif.ui.custom
+package com.khinthirisoe.lomotif.ui.widget
 
 import android.content.Context
 import android.util.AttributeSet
@@ -18,10 +18,8 @@ class AppRecyclerView : RecyclerView {
 
     var toggleEmptyView : ((isEmpty: Boolean) -> Unit)? = null
 
-    private fun toggleView() {
-        val isEmpty = adapter == null || adapter!!.itemCount == 0
-        toggleEmptyView?.invoke(isEmpty)
-    }
+    private fun toggleView() =
+        toggleEmptyView?.invoke(adapter == null || adapter!!.itemCount == 0)
 
     private val observer: AdapterDataObserver = object : AdapterDataObserver() {
         override fun onChanged() {

@@ -1,4 +1,4 @@
-package com.khinthirisoe.lomotif.ui.custom
+package com.khinthirisoe.lomotif.ui.widget
 
 import android.content.Context
 import android.os.Environment

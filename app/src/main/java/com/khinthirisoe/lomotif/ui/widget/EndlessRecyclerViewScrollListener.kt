@@ -1,4 +1,4 @@
-package com.khinthirisoe.lomotif.ui.custom
+package com.khinthirisoe.lomotif.ui.widget
 
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager

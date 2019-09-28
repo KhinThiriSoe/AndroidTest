@@ -13,10 +13,10 @@ import com.khinthirisoe.lomotif.core.network.ResponseError
 import com.khinthirisoe.lomotif.data.DataSourceProperties
 import com.khinthirisoe.lomotif.data.gallery.Hits
 import com.khinthirisoe.lomotif.ui.Failed
-import com.khinthirisoe.lomotif.ui.custom.EndlessRecyclerViewScrollListener
-import com.khinthirisoe.lomotif.ui.custom.OverlayView
 import com.khinthirisoe.lomotif.ui.gallery.detail.DetailFragment
 import com.khinthirisoe.lomotif.ui.main.MainActivity
+import com.khinthirisoe.lomotif.ui.widget.EndlessRecyclerViewScrollListener
+import com.khinthirisoe.lomotif.ui.widget.OverlayView
 import kotlinx.android.synthetic.main.fragment_gallery.*
 import kotlinx.android.synthetic.main.fragment_gallery.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel

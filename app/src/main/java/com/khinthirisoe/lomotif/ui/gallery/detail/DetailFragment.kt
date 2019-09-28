@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.khinthirisoe.lomotif.data.gallery.Hits
-import com.khinthirisoe.lomotif.ui.custom.RoundedBottomSheetDialogFragment
+import com.khinthirisoe.lomotif.ui.widget.RoundedBottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_detail.*
 
 
