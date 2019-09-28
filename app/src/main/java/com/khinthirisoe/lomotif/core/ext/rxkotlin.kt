@@ -9,9 +9,9 @@ import io.reactivex.schedulers.Schedulers
 fun Completable.initSchedulers(
         observeOn: Scheduler = AndroidSchedulers.mainThread(),
         subscribeOn: Scheduler = Schedulers.io()
-): Completable = this.observeOn(observeOn).subscribeOn(subscribeOn)
+): Completable = observeOn(observeOn).subscribeOn(subscribeOn)
 
 fun <T> Single<T>.initSchedulers(
         observeOn: Scheduler = AndroidSchedulers.mainThread(),
         subscribeOn: Scheduler = Schedulers.io()
-): Single<T> = this.observeOn(observeOn).subscribeOn(subscribeOn)
+): Single<T> = observeOn(observeOn).subscribeOn(subscribeOn)

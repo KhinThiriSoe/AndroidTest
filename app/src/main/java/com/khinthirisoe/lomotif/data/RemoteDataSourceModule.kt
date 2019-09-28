@@ -15,7 +15,7 @@ val remoteDataSourceModule = module {
     single {
         createWebService<GalleryDataSource>(
             DataSourceProperties.BASE_URL,
-            get()
+            okHttpClient = get()
         )
     }
 }

@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.khinthirisoe.lomotif.R
 import com.khinthirisoe.lomotif.data.gallery.Hits
-import kotlinx.android.synthetic.main.fragment_detail.view.*
+import kotlinx.android.synthetic.main.list_gallery.view.*
 
 class GalleryAdapter(
-    private val onClick: (Hits) -> Unit
+    private val onItemClicked: (Hits) -> Unit
 ) : RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
 
     private val hitList: ArrayList<Hits> = arrayListOf()
@@ -21,7 +21,7 @@ class GalleryAdapter(
     }
 
     override fun onBindViewHolder(holder: GalleryViewHolder, position: Int) {
-        holder.display(hitList[position])
+        holder.bind(hitList[position])
     }
 
     override fun getItemCount() = hitList.size
@@ -31,15 +31,21 @@ class GalleryAdapter(
         notifyDataSetChanged()
     }
 
-    inner class GalleryViewHolder(item: View) : RecyclerView.ViewHolder(item) {
+    inner class GalleryViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun display(hits: Hits) {
+        init {
+            itemView.imageView.setOnClickListener {
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    onItemClicked(hitList[adapterPosition])
+                }
+            }
+        }
+
+        fun bind(hits: Hits) = with(hits) {
             Glide.with(itemView.context)
-                .load(hits.previewURL)
-                .override(hits.previewWidth, hits.previewHeight)
+                .load(previewURL)
+                .override(previewWidth, previewHeight)
                 .into(itemView.imageView)
-
-            itemView.imageView.setOnClickListener { onClick(hits) }
         }
 
     }

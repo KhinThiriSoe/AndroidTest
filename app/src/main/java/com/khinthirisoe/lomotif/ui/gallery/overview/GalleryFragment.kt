@@ -14,7 +14,6 @@ import com.khinthirisoe.lomotif.data.DataSourceProperties
 import com.khinthirisoe.lomotif.data.gallery.Hits
 import com.khinthirisoe.lomotif.ui.Failed
 import com.khinthirisoe.lomotif.ui.gallery.detail.DetailFragment
-import com.khinthirisoe.lomotif.ui.main.MainActivity
 import com.khinthirisoe.lomotif.ui.widget.EndlessRecyclerViewScrollListener
 import com.khinthirisoe.lomotif.ui.widget.OverlayView
 import kotlinx.android.synthetic.main.fragment_gallery.*
@@ -28,7 +27,7 @@ class GalleryFragment : Fragment(), OverlayView.OnOverlayButtonClickedListener {
     private var scrollListener: EndlessRecyclerViewScrollListener? = null
 
     private val galleryAdapter: GalleryAdapter =
-        GalleryAdapter(onItemClicked())
+        GalleryAdapter(::onItemClicked)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -94,14 +93,9 @@ class GalleryFragment : Fragment(), OverlayView.OnOverlayButtonClickedListener {
         viewModel.fetchData(DataSourceProperties.VALUE_API_KEY, 1)
     }
 
-    private fun onItemClicked(): (Hits) -> Unit {
-        return { hit ->
-            val fragment = DetailFragment()
-            val bundle = Bundle()
-            bundle.putParcelable("data", hit)
-            fragment.arguments = bundle
-            fragment.show((context as MainActivity).supportFragmentManager, "DetailFragment")
-        }
+    private fun onItemClicked(hits: Hits) {
+        DetailFragment.newInstance(hits)
+            .show(childFragmentManager, DetailFragment::class.java.simpleName)
     }
 
 }

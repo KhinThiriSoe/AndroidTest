@@ -13,12 +13,23 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailFragment : RoundedBottomSheetDialogFragment() {
 
+    companion object {
+
+        const val EXTRA_DATA = "data"
+
+        fun newInstance(hits: Hits) = DetailFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(EXTRA_DATA, hits)
+            }
+        }
+    }
+
     private var hits : Hits? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        hits = arguments!!.getParcelable<Hits>("data")
+        hits = arguments!!.getParcelable(EXTRA_DATA)
 
     }
     override fun onCreateView(
