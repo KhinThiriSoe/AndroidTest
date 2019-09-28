@@ -12,7 +12,7 @@ data class Hits (
     @SerializedName("likes") val likes : Int,
     @SerializedName("imageWidth") val imageWidth : Int,
     @SerializedName("id") val id : Int,
-    @SerializedName("user_id") val user_id : Int,
+    @SerializedName("user_id") val userId : Int,
     @SerializedName("views") val views : Int,
     @SerializedName("comments") val comments : Int,
     @SerializedName("pageURL") val pageURL : String,
