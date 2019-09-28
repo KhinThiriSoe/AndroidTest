@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.khinthirisoe.lomotif.R
 import kotlinx.android.synthetic.main.fragment_video.*
 
@@ -29,12 +29,10 @@ class VideoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btn_load.setOnClickListener {
-            printNamesToLogCat(view.context)
-        }
+        loadVideos(view.context)
     }
 
-    private fun printNamesToLogCat(context: Context) {
+    private fun loadVideos(context: Context) {
         val uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
         val projection = arrayOf(MediaStore.Video.VideoColumns.DATA)
         val c = context.contentResolver.query(uri, projection, null, null, null)
@@ -50,7 +48,7 @@ class VideoFragment : Fragment() {
 
         Log.d("message",videosCount.toString())
 
-        val gridLayoutManager = LinearLayoutManager(context)
+        val gridLayoutManager = GridLayoutManager(context, 2)
 
         with(recyclerVideo) {
             layoutManager = gridLayoutManager
@@ -59,9 +57,5 @@ class VideoFragment : Fragment() {
         videoAdapter.setData(video)
         recyclerVideo.adapter = videoAdapter
 
-    }
-
-    companion object{
-        const val FILE_REQUEST_CODE = 1
     }
 }
