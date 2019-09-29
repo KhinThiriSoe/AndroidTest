@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.khinthirisoe.lomotif.R
 import com.khinthirisoe.lomotif.core.network.ResponseError
-import com.khinthirisoe.lomotif.data.DataSourceProperties
 import com.khinthirisoe.lomotif.data.gallery.Hits
 import com.khinthirisoe.lomotif.ui.Failed
 import com.khinthirisoe.lomotif.ui.gallery.detail.DetailFragment
@@ -24,10 +23,7 @@ class GalleryFragment : Fragment(), OverlayView.OnOverlayButtonClickedListener {
 
     private val viewModel: GalleryViewModel by viewModel()
 
-    private var scrollListener: EndlessRecyclerViewScrollListener? = null
-
-    private val galleryAdapter: GalleryAdapter =
-        GalleryAdapter(::onItemClicked)
+    private val galleryAdapter: GalleryAdapter = GalleryAdapter(::onItemClicked)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,9 +31,9 @@ class GalleryFragment : Fragment(), OverlayView.OnOverlayButtonClickedListener {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_gallery, container, false)
 
-        val gridLayoutManager = GridLayoutManager(context, 2)
 
-        with(view.recyclerGallery) {
+        view.galleryRecyclerView.apply {
+            val gridLayoutManager = GridLayoutManager(context, 2)
             layoutManager = gridLayoutManager
             isNestedScrollingEnabled = false
             toggleEmptyView = { isEmpty ->
@@ -51,12 +47,12 @@ class GalleryFragment : Fragment(), OverlayView.OnOverlayButtonClickedListener {
             }
             this.adapter = galleryAdapter
 
-            scrollListener = object : EndlessRecyclerViewScrollListener(gridLayoutManager) {
+            addOnScrollListener(object : EndlessRecyclerViewScrollListener(gridLayoutManager)  {
                 override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
-                    viewModel.fetchData(DataSourceProperties.VALUE_API_KEY, page)
+                    viewModel.fetchData(page)
                 }
-            }
-            addOnScrollListener(scrollListener as EndlessRecyclerViewScrollListener)
+            })
+
         }
 
         return view
@@ -66,7 +62,7 @@ class GalleryFragment : Fragment(), OverlayView.OnOverlayButtonClickedListener {
         super.onViewCreated(view, savedInstanceState)
 
         if (galleryAdapter.itemCount == 0)
-            viewModel.fetchData(DataSourceProperties.VALUE_API_KEY, 1)
+            viewModel.fetchData(1)
         else
             galleryAdapter.notifyDataSetChanged()
 
@@ -83,14 +79,11 @@ class GalleryFragment : Fragment(), OverlayView.OnOverlayButtonClickedListener {
     }
 
     private fun showGalleryItemList(newList: List<Hits>) {
-        with(galleryAdapter) {
-            setData(newList)
-            notifyDataSetChanged()
-        }
+        galleryAdapter.hitList = newList
     }
 
-    override fun onOverlayButtonClick(view: View) {
-        viewModel.fetchData(DataSourceProperties.VALUE_API_KEY, 1)
+    override fun onOverlayButtonClicked(view: View) {
+        viewModel.fetchData(1)
     }
 
     private fun onItemClicked(hits: Hits) {

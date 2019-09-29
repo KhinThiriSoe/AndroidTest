@@ -43,7 +43,7 @@ class OverlayView : RelativeLayout, View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.btnOverlay -> {
-                onOverlayButtonClickedListener?.onOverlayButtonClick(view)
+                onOverlayButtonClickedListener?.onOverlayButtonClicked(view)
             }
         }
     }
@@ -122,7 +122,7 @@ class OverlayView : RelativeLayout, View.OnClickListener {
     }
 
     interface OnOverlayButtonClickedListener {
-        fun onOverlayButtonClick(view: View)
+        fun onOverlayButtonClicked(view: View)
     }
 
 }

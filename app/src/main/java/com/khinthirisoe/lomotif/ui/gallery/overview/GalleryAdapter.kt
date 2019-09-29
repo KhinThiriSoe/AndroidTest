@@ -8,15 +8,19 @@ import com.bumptech.glide.Glide
 import com.khinthirisoe.lomotif.R
 import com.khinthirisoe.lomotif.data.gallery.Hits
 import kotlinx.android.synthetic.main.list_gallery.view.*
+import kotlin.properties.Delegates
 
 class GalleryAdapter(
     private val onItemClicked: (Hits) -> Unit
 ) : RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
 
-    private val hitList: ArrayList<Hits> = arrayListOf()
+    var hitList by Delegates.observable(listOf<Hits>()) { _, _, _ ->
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_gallery, parent, false)
+        val view = LayoutInflater
+            .from(parent.context).inflate(R.layout.list_gallery, parent, false)
         return GalleryViewHolder(view)
     }
 
@@ -25,11 +29,6 @@ class GalleryAdapter(
     }
 
     override fun getItemCount() = hitList.size
-
-    fun setData(hits: List<Hits>){
-        hitList.addAll(hits)
-        notifyDataSetChanged()
-    }
 
     inner class GalleryViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 

@@ -20,12 +20,12 @@ class GalleryViewModel(
     val states: LiveData<ViewModelState>
         get() = _states
 
-    fun fetchData(key: String, page: Int) {
+    fun fetchData(page: Int) {
         _states.value = Loading
         launch {
             networkUtils.isInternetOn()
                 .andThen(
-                    galleryRepository.fetchImage(key, page).initSchedulers()
+                    galleryRepository.fetchImage(page).initSchedulers()
                 ).subscribe({ image ->
                     _states.value =
                         GalleryLoaded(
