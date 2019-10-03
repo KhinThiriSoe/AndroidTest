@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.khinthirisoe.lomotif.R
 import kotlinx.android.synthetic.main.fragment_detail.view.*
 
-class VideoAdapter(
+class VideoAdapter(private val onItemClicked: (String) -> Unit
 ) : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>() {
 
     private val video: ArrayList<String> = arrayListOf()
@@ -30,6 +30,14 @@ class VideoAdapter(
     }
 
     inner class VideoViewHolder(item: View) : RecyclerView.ViewHolder(item) {
+
+        init {
+            itemView.imageView.setOnClickListener {
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    onItemClicked(video[adapterPosition])
+                }
+            }
+        }
 
         fun display(video: String) {
             Glide.with(itemView.context)

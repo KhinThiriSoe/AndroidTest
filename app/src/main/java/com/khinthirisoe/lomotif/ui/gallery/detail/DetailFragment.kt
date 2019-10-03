@@ -34,8 +34,8 @@ class DetailFragment : RoundedBottomSheetDialogFragment() {
         super.onCreate(savedInstanceState)
 
         hits = arguments!!.getParcelable(EXTRA_DATA)
-
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

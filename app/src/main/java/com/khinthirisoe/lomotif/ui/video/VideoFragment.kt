@@ -23,7 +23,7 @@ class VideoFragment : Fragment() {
 
     private var video: ArrayList<String> = arrayListOf()
 
-    private val videoAdapter: VideoAdapter = VideoAdapter()
+    private val videoAdapter: VideoAdapter = VideoAdapter (::onItemClicked)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -139,6 +139,11 @@ class VideoFragment : Fragment() {
                 grantResults
             )
         }
+    }
+
+    private fun onItemClicked(path: String) {
+        PlayerFragment.newInstance(path)
+            .show(childFragmentManager, PlayerFragment::class.java.simpleName)
     }
 
     companion object {
