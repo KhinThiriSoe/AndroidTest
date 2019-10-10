@@ -2,7 +2,7 @@ package com.khinthirisoe.lomotif.ui.main
 
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -11,7 +11,7 @@ import com.khinthirisoe.lomotif.ui.gallery.overview.GalleryFragment
 import com.khinthirisoe.lomotif.ui.video.VideoFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

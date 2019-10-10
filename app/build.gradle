@@ -79,6 +79,9 @@ dependencies {
 
     implementation 'com.android.support:multidex:1.0.3'// or 2.0.1
 
+    implementation 'com.github.esafirm:rxdownloader:2.0.0'
+
+
     // test
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test:runner:$test_runner_version"

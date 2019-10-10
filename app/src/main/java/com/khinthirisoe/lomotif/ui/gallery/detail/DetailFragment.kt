@@ -1,19 +1,28 @@
 package com.khinthirisoe.lomotif.ui.gallery.detail
 
-import android.content.Intent
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.NonNull
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker
 import com.bumptech.glide.Glide
+import com.esafirm.rxdownloader.RxDownloader
 import com.khinthirisoe.lomotif.R
 import com.khinthirisoe.lomotif.data.gallery.Hits
-import com.khinthirisoe.lomotif.ui.gallery.ForegroundService
 import com.khinthirisoe.lomotif.ui.main.MainActivity
 import com.khinthirisoe.lomotif.ui.widget.RoundedBottomSheetDialogFragment
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_detail.*
-
 
 class DetailFragment : RoundedBottomSheetDialogFragment() {
 
@@ -33,13 +42,16 @@ class DetailFragment : RoundedBottomSheetDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        hits = arguments!!.getParcelable(EXTRA_DATA)
+        hits = arguments?.getParcelable(EXTRA_DATA)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        checkPermission()
+
         return inflater.inflate(R.layout.fragment_detail, container, false)
     }
 
@@ -57,16 +69,55 @@ class DetailFragment : RoundedBottomSheetDialogFragment() {
         }
 
         tvDownload.setOnClickListener {
-            startService()
+            startSample()
         }
     }
 
-    private fun startService() {
+    private fun checkPermission() {
+        val permission = Manifest.permission.WRITE_EXTERNAL_STORAGE
+        val permissionCheck = ContextCompat.checkSelfPermission(context as MainActivity, permission)
 
-        Intent(context, ForegroundService::class.java)
-            .apply {
-                this.putExtra(EXTRA_DATA, "Foreground Service Example in Android")
-                ContextCompat.startForegroundService(context as MainActivity, this)
-            }
+        if (permissionCheck != PermissionChecker.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(context as MainActivity, arrayOf(permission), 0)
+            return
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, @NonNull permissions: Array<String>, @NonNull grantResults: IntArray) {
+        if (requestCode != 0) return
+        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            startSample()
+        }
+    }
+
+    private fun startSample() {
+        val rxDownloader = RxDownloader(context as MainActivity)
+        rxDownloader.download(
+            hits?.webformatURL!!,
+            hits?.user!!,
+            "image/jpg",
+            true)
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<String> {
+                override fun onSubscribe(d: Disposable) {
+                    d.dispose()
+                }
+
+                override fun onNext(filePath: String) {
+                    Toast.makeText(context, "Downloaded to $filePath", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+                override fun onError(e: Throwable) {
+                    Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onComplete() {
+                    Log.d(
+                        "Sample",
+                        "Is in main thread? " + (Looper.getMainLooper() == Looper.myLooper())
+                    )
+                }
+            })
     }
 }
