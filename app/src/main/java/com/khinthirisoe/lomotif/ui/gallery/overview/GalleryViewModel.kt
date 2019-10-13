@@ -27,10 +27,7 @@ class GalleryViewModel(
                 .andThen(
                     galleryRepository.fetchImage(page).initSchedulers()
                 ).subscribe({ image ->
-                    _states.value =
-                        GalleryLoaded(
-                            image
-                        )
+                    _states.value = GalleryLoaded(image)
                 }, { error ->
                     _states.value = Failed(error)
                 })

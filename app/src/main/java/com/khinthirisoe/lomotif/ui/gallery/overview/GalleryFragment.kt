@@ -12,6 +12,7 @@ import com.khinthirisoe.lomotif.R
 import com.khinthirisoe.lomotif.core.network.ResponseError
 import com.khinthirisoe.lomotif.data.gallery.Hits
 import com.khinthirisoe.lomotif.ui.Failed
+import com.khinthirisoe.lomotif.ui.Loading
 import com.khinthirisoe.lomotif.ui.gallery.detail.DetailFragment
 import com.khinthirisoe.lomotif.ui.widget.EndlessRecyclerViewScrollListener
 import com.khinthirisoe.lomotif.ui.widget.OverlayView
@@ -22,6 +23,8 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class GalleryFragment : Fragment(), OverlayView.OnOverlayButtonClickedListener {
 
     private val viewModel: GalleryViewModel by viewModel()
+
+    private var hitList: ArrayList<Hits> = arrayListOf()
 
     private val galleryAdapter: GalleryAdapter = GalleryAdapter(::onItemClicked)
 
@@ -52,9 +55,7 @@ class GalleryFragment : Fragment(), OverlayView.OnOverlayButtonClickedListener {
                     viewModel.fetchData(page)
                 }
             })
-
         }
-
         return view
     }
 
@@ -68,8 +69,15 @@ class GalleryFragment : Fragment(), OverlayView.OnOverlayButtonClickedListener {
 
         viewModel.states.observe(this, Observer { state ->
             when (state) {
-                is GalleryViewModel.GalleryLoaded -> showGalleryItemList(state.gallery.hits)
+                is Loading -> {
+                    progressBar.visibility = View.VISIBLE
+                }
+                is GalleryViewModel.GalleryLoaded -> {
+                    progressBar.visibility = View.GONE
+                    showGalleryItemList(state.gallery.hits)
+                }
                 is Failed -> {
+                    progressBar.visibility = View.GONE
                     if (state.error is ResponseError.NoInternetConnection) {
                         overlayView.show(R.string.offline, R.drawable.ic_no_internet_connection, R.string.try_again, this)
                     }
@@ -79,7 +87,8 @@ class GalleryFragment : Fragment(), OverlayView.OnOverlayButtonClickedListener {
     }
 
     private fun showGalleryItemList(newList: List<Hits>) {
-        galleryAdapter.hitList = newList
+        this.hitList.addAll(newList)
+        galleryAdapter.hitList = hitList
     }
 
     override fun onOverlayButtonClicked(view: View) {

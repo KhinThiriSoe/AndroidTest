@@ -5,6 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.signature.ObjectKey
 import com.khinthirisoe.lomotif.R
 import com.khinthirisoe.lomotif.data.gallery.Hits
 import kotlinx.android.synthetic.main.list_gallery.view.*
@@ -41,8 +44,12 @@ class GalleryAdapter(
         }
 
         fun bind(hits: Hits) = with(hits) {
+            val options = RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .signature(ObjectKey(System.currentTimeMillis()))
             Glide.with(itemView.context)
                 .load(previewURL)
+                .apply(options)
                 .override(previewWidth, previewHeight)
                 .into(itemView.imageView)
         }
