@@ -81,6 +81,7 @@ dependencies {
 
     implementation 'com.github.esafirm:rxdownloader:2.0.0'
 
+    implementation "com.google.android.exoplayer:exoplayer:2.10.5"
 
     // test
     testImplementation "junit:junit:$junit_version"

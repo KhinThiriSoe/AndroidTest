@@ -21,11 +21,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <service
-            android:name=".ui.gallery.ForegroundService"
-            android:enabled="true"
-            android:exported="true"/>
-
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

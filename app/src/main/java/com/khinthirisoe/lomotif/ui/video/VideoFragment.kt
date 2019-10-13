@@ -19,9 +19,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_video.*
 
+
 class VideoFragment : Fragment() {
 
-    private var video: ArrayList<String> = arrayListOf()
+    private var media: ArrayList<MediaModel> = arrayListOf()
 
     private val videoAdapter: VideoAdapter = VideoAdapter (::onItemClicked)
 
@@ -35,19 +36,41 @@ class VideoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (checkPermissionREAD_EXTERNAL_STORAGE(view.context)) loadVideos(view.context)
+        if (checkPermissionReadExternalStorage(view.context)) loadVideos(view.context)
     }
 
     private fun loadVideos(context: Context) {
-        val uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-        val projection = arrayOf(MediaStore.Video.VideoColumns.DATA)
-        val c = context.contentResolver.query(uri, projection, null, null, null)
+
+        val queryUri = MediaStore.Files.getContentUri("external")
+
+        val projection = arrayOf(
+            MediaStore.Files.FileColumns._ID,
+            MediaStore.Files.FileColumns.DATA,
+            MediaStore.Files.FileColumns.DATE_ADDED,
+            MediaStore.Files.FileColumns.MEDIA_TYPE,
+            MediaStore.Files.FileColumns.MIME_TYPE,
+            MediaStore.Files.FileColumns.TITLE
+        )
+
+        val selection = (MediaStore.Files.FileColumns.MEDIA_TYPE + "="
+                + MediaStore.Files.FileColumns.MEDIA_TYPE_AUDIO
+                + " OR "
+                + MediaStore.Files.FileColumns.MEDIA_TYPE + "="
+                + MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO)
+
+        val c = context.contentResolver.query(
+            queryUri,
+            projection,
+            selection,
+            null,
+            MediaStore.Files.FileColumns.DATE_ADDED + " ASC"
+        )
+
         var videosCount = 0
         if (c != null) {
             videosCount = c.count
             while (c.moveToNext()) {
-                video.add(c.getString(0))
-                Log.d("message", c.getString(0))
+                media.add(MediaModel(c.getString(1), c.getString(5)))
             }
             c.close()
         }
@@ -60,12 +83,12 @@ class VideoFragment : Fragment() {
             layoutManager = gridLayoutManager
         }
 
-        videoAdapter.setData(video)
+        videoAdapter.setData(media)
         recyclerVideo.adapter = videoAdapter
 
     }
 
-    private fun checkPermissionREAD_EXTERNAL_STORAGE(context: Context): Boolean {
+    private fun checkPermissionReadExternalStorage(context: Context): Boolean {
         val currentAPIVersion = Build.VERSION.SDK_INT
         if (currentAPIVersion >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(
@@ -101,10 +124,7 @@ class VideoFragment : Fragment() {
         }
     }
 
-    private fun showDialog(
-        msg: String, context: Context,
-        permission: String
-    ) {
+    private fun showDialog(msg: String, context: Context, permission: String) {
         val alertBuilder = AlertDialog.Builder(context)
         alertBuilder.setCancelable(true)
         alertBuilder.setTitle("Permission necessary")

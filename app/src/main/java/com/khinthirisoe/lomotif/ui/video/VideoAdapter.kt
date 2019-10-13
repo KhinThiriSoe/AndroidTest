@@ -6,44 +6,51 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.khinthirisoe.lomotif.R
-import kotlinx.android.synthetic.main.fragment_detail.view.*
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.list_media.*
+
 
 class VideoAdapter(private val onItemClicked: (String) -> Unit
 ) : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>() {
 
-    private val video: ArrayList<String> = arrayListOf()
+    private val media: ArrayList<MediaModel> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_gallery, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.list_media, parent, false)
         return VideoViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
-        holder.display(video[position])
+        holder.display(media[position])
     }
 
-    override fun getItemCount() = video.size
+    override fun getItemCount() = media.size
 
-    fun setData(video: List<String>){
-        this.video.addAll(video)
+    fun setData(video: List<MediaModel>){
+        this.media.addAll(video)
         notifyDataSetChanged()
     }
 
-    inner class VideoViewHolder(item: View) : RecyclerView.ViewHolder(item) {
+    inner class VideoViewHolder(override val containerView: View
+    ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         init {
-            itemView.imageView.setOnClickListener {
+            imageView.setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    onItemClicked(video[adapterPosition])
+                    onItemClicked(media[adapterPosition].video)
                 }
             }
         }
 
-        fun display(video: String) {
-            Glide.with(itemView.context)
-                .load(video)
-                .into(itemView.imageView)
+        fun display(mediaModel: MediaModel) {
 
+            Glide.with(itemView.context)
+                .load(mediaModel.video)
+                .placeholder(R.drawable.ic_audiotrack_black)
+                .into(imageView)
+
+            txtTitle.text = mediaModel.title
         }
 
     }
