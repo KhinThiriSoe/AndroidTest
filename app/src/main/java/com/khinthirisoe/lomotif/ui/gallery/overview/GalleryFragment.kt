@@ -78,6 +78,7 @@ class GalleryFragment : Fragment(), OverlayView.OnOverlayButtonClickedListener {
                 }
                 is Failed -> {
                     progressBar.visibility = View.GONE
+                    galleryRecyclerView.visibility = View.GONE
                     if (state.error is ResponseError.NoInternetConnection) {
                         overlayView.show(R.string.offline, R.drawable.ic_no_internet_connection, R.string.try_again, this)
                     }
