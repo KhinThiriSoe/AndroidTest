@@ -29,6 +29,15 @@ ext {
     glide_version = '4.9.0'
     exoplayer_version = '2.8.1'
 
+    // File Picker
+    file_picker_version = '1.2.2'
+
+    // Downloader
+    downloader_version = '2.0.0'
+
+    // Player
+    exoplayer_version = '2.10.5'
+
     // Test
     test_runner_version = '1.2.0'
     junit_version = '4.12'

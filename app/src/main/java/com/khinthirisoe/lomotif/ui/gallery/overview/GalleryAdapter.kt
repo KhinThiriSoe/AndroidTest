@@ -10,7 +10,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.khinthirisoe.lomotif.R
 import com.khinthirisoe.lomotif.data.gallery.Hits
-import kotlinx.android.synthetic.main.list_gallery.view.*
+import kotlinx.android.synthetic.main.item_gallery.view.*
 import kotlin.properties.Delegates
 
 class GalleryAdapter(
@@ -23,7 +23,7 @@ class GalleryAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
         val view = LayoutInflater
-            .from(parent.context).inflate(R.layout.list_gallery, parent, false)
+            .from(parent.context).inflate(R.layout.item_gallery, parent, false)
         return GalleryViewHolder(view)
     }
 

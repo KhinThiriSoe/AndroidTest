@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -81,6 +82,8 @@ class GalleryFragment : Fragment(), OverlayView.OnOverlayButtonClickedListener {
                     galleryRecyclerView.visibility = View.GONE
                     if (state.error is ResponseError.NoInternetConnection) {
                         overlayView.show(R.string.offline, R.drawable.ic_no_internet_connection, R.string.try_again, this)
+                    } else {
+                        Toast.makeText(context, state.error.message, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

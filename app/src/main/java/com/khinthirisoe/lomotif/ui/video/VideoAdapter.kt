@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.khinthirisoe.lomotif.R
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.list_media.*
+import kotlinx.android.synthetic.main.item_media.*
 
 
 class VideoAdapter(private val onItemClicked: (String) -> Unit
@@ -17,7 +17,7 @@ class VideoAdapter(private val onItemClicked: (String) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_media, parent, false)
+            .inflate(R.layout.item_media, parent, false)
         return VideoViewHolder(view)
     }
 
