@@ -114,7 +114,7 @@ class DetailFragment : RoundedBottomSheetDialogFragment() {
 
                 override fun onComplete() {
                     Log.d(
-                        "Sample",
+                        "message",
                         "Is in main thread? " + (Looper.getMainLooper() == Looper.myLooper())
                     )
                 }

@@ -3,7 +3,6 @@ package com.khinthirisoe.lomotif.ui.video
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,8 +40,6 @@ class PlayerFragment : RoundedBottomSheetDialogFragment() {
         super.onCreate(savedInstanceState)
 
         path = arguments!!.getString(EXTRA_DATA)
-
-        Log.d("message","path " + path)
     }
 
     override fun onCreateView(
